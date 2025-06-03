@@ -1,0 +1,214 @@
+.services-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000000;
+  padding-top: 110px; /* Space for navbar */
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Add background image properties */
+  background-image: url('../assets/images/background-image-1.jpg'); /* Assuming image is in assets/images */
+  background-size: cover;
+  background-position: center top; /* Position from the top */
+  background-attachment: fixed; /* Make the background fixed */
+  background-repeat: no-repeat; /* Prevent repeating */
+}
+
+.services-header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 40px; /* Reduced margin */
+  position: relative;
+}
+
+.services-title {   
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 85px; /* Smaller font size */
+  font-weight: 700;
+  color: #dadbd9;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+
+.services-underline {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  height: 1.5px;
+  background-color: #dadbd9;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px; /* Slightly increased gap */
+  width: 95%; /* Increased width to match the underline */
+  max-width: 1300px; /* Match with underline max-width */
+  margin: 0 auto;
+  padding-top: 0px;
+}
+
+.service-card {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden; /* Changed back to hidden */
+  background-color: #dbb900;
+  transition: transform 0.3s ease;
+  height: 400px; /* Increased height to accommodate full image */
+  z-index: 10; /* Higher z-index for the card */
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  border-radius: 10px 10px 0 0;
+  transition: transform 0.3s ease, border-radius 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.service-image-container {
+  width: 100%;
+  height: 80%; /* Adjusted ratio to give more space for the image */
+  overflow: hidden;
+}
+
+.service-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Keep object-fit: cover to maintain aspect ratio */
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.service-card:hover .service-image {
+  filter: grayscale(0%);
+}
+
+.service-info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #dbb900;
+  padding: 15px; /* Increased padding */
+  transition: transform 0.3s ease;
+}
+
+.service-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 20px; /* Larger font */
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.services-description {
+  font-family: 'Cinzel', serif;
+  font-size: 12px; /* Larger font */
+  color: #000000;
+  text-align: center;
+}
+
+/* Card wrapper to handle the reserve section */
+.card-wrapper {
+  position: relative;
+  margin-bottom: 10px; /* Space for the reserve section */
+}
+
+.reserve-section {
+  position: absolute;
+  top: 100%; /* Position it below the card */
+  left: 0;
+  width: 100%;
+  background-color: #dadbd9;
+  padding: 8px; /* Reduced padding to allow button to be larger */
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0 0 10px 10px; /* Round only bottom corners */
+  opacity: 0;
+  transform: translateY(-100%); /* Start from behind the card */
+  z-index: 5; /* Lower z-index than the card */
+  border: 2px solid #dbb900; /* Remove top border */
+  height: 0; /* Start with no height */
+  overflow: hidden;
+}
+
+.card-wrapper:hover .reserve-section {
+  opacity: 1;
+  transform: translateY(0); /* Move to its position */
+  height: auto; /* Expand to content height */
+}
+
+.reserve-button {
+  background-color: transparent;
+  color: #000000;
+  padding: 10px 20px; /* Keep padding for text spacing */
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 14px; /* Larger font */
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  border: none;
+  width: 100%; /* Make button take up almost all of the reserve section width */
+  height: 100%; /* Make button take up almost all of the reserve section height */
+  border-radius: 5px; /* Add slight rounding to button */
+}
+
+.reserve-button:hover {
+  background-color: #dbb900;
+  color: #000000;
+}
+
+/* Add this new rule for when button is hovered */
+.reserve-section.button-hovered {
+  background-color: #dbb900;
+}
+
+/* Add this new rule to change section background only when button is hovered */
+
+
+.card-wrapper:hover .service-card {
+  transform: translateY(-5px);
+  border-radius: 10px 10px 0 0;
+  transition: transform 0.3s ease, border-radius 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .services-grid {
+    width: 90%;
+  }
+}
+
+@media (max-width: 992px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for medium screens */
+    grid-template-rows: repeat(2, 1fr);
+  }
+  
+  .services-title {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr; /* 1 column for small screens */
+    grid-template-rows: repeat(4, 1fr);
+  }
+  
+  .services-title {
+    font-size: 30px;
+  }
+    
+  .service-title {
+    font-size: 18px;
+  }
+  
+  .services-description {
+    font-size: 11px;
+  }
+}

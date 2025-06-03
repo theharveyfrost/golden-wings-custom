@@ -1,0 +1,306 @@
+/* Home Page Styles */
+.home-container {
+  padding-top: 10px;
+  width: 100%;
+  overflow-x: hidden;
+  
+}
+
+/* Hero Section */
+.hero-section {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: #000000;
+  padding-top: 50px; /* Space for navbar */
+}
+
+.hero-content {
+  text-align: center;
+  z-index: 10;
+  margin-bottom: 20px;
+  width: 90%; /* Make content wider */
+  max-width: 1400px; /* Increase max width */
+}
+
+.main-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 400;
+  font-size: 64px;
+  color: #dadbd9;
+  margin-bottom: 10px;  
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 2px;
+}
+
+.secondary-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 400;
+  font-size: 48px;
+  color: #dadbd9;
+  margin-bottom: 20px;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 2px;
+}
+
+.subheading {
+  font-family: 'Cinzel', serif;
+  font-size: 24px;
+  color: #dadbd9;
+  margin-bottom: 10px;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+}
+
+.hero-image {
+  width: 80%; /* Increase width to make image larger */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  margin: 0 auto; /* Center the image container */
+}
+
+.hero-image img {
+  max-width: 100%; /* Allow image to take full width of container */
+  max-height: 60vh; /* Increase max height */
+  object-fit: contain;
+}
+
+.hero-footer {
+  position: absolute;
+  bottom: 30px; /* Move closer to the bottom */
+  width: 100%; /* Change from 45% to 100% to ensure full width */
+  text-align: center;
+  max-width: 1400px; /* Match max width with hero content */
+  z-index: 15; /* Add z-index to ensure it's above other elements */
+  padding-top: 20px;
+}
+
+.service-description {
+  font-family: 'Cinzel', serif;
+  color: #dadbd9;
+  font-size: 24px;
+  letter-spacing: 1px;
+  text-align: center; /* Ensure text is centered */
+  width: 100%; /* Ensure it takes full width */
+}
+
+/* Portfolio Section */
+.portfolio-section {
+  padding: 80px 20px;
+  background-color: #000000;
+  width: 100%; /* Make this section wider */
+  max-width: 1400px; /* Increase max width */
+  margin: 0 auto; /* Center the section */
+}
+
+.section-divider {
+  height: 0.5px;
+  background-color: #dbb900;
+  width: 100%; /* Make divider full width of the section */
+  margin: 0 auto 40px;
+}
+
+.portfolio-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 48px;
+  color: #dadbd9;
+  text-align: center;
+  margin-bottom: 60px;
+  text-decoration: underline;
+  text-underline-offset: 10px;
+  letter-spacing: 2px;
+}
+
+/* Portfolio Cards */
+.portfolio-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 900px; /* Reduced max width */
+  margin: 0 auto;
+}
+
+.portfolio-card {
+  display: flex;
+  background-color: #000000;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 2px solid #dbb900;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  min-height: 50px;
+  max-height: 180px;
+}
+
+.card-left {
+  width: 18%;
+  background-color: #dbb900;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Changed from space-between to center */
+  align-items: center;
+  gap: 15px; /* Added gap between logo and date */
+}
+
+.card-logo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: -10px; /* Move logo up a bit */
+}
+
+.card-logo img {
+  width: 140px; /* Smaller logo */
+  max-width: 140px;
+}
+
+.card-date {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: bold;
+  font-size: 20px; /* Smaller font size */
+  color: #000000;
+  margin-bottom: 20px; /* Add some space at bottom */
+}
+
+.card-center {
+  width: 32%;
+  padding: 0px;
+  position: relative; /* For positioning arrows */
+}
+
+/* New image slider container */
+.image-slider {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Single image display */
+.card-image-main {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Navigation arrows */
+.image-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #dbb900;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  font-size: 18px;
+}
+
+.prev-image {
+  left: 10px;
+}
+
+.next-image {
+  right: 10px;
+}
+
+.card-right {
+  width: 50%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.client-name {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 22px; /* Smaller font size */
+  color: #dadbd9;
+  margin-bottom: 10px; /* Reduced margin */
+}
+
+.project-description {
+  font-family: 'Cinzel', sans-serif;
+  font-size: 12px; /* Smaller font size */
+  color: #dadbd9;
+  line-height: 1.4; /* Tighter line height */
+  margin-bottom: 10px; /* Reduced margin */
+  max-height: 80px; /* Limit height */
+  overflow-y: auto; /* Add scroll if needed */
+}
+
+.feedback-section {
+  margin-top: 5px; /* Reduced margin */
+}
+
+.feedback-title {
+  font-family: 'Cinzel', serif;
+  font-size: 14px; /* Smaller font size */
+  color: #dbb900;
+  margin-bottom: 5px; /* Reduced margin */
+}
+
+.feedback-text {
+  font-family: 'Cinzel Decorative', sans-serif;
+  font-style: italic;
+  font-size: 12px; /* Smaller font size */
+  color: #dadbd9;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .portfolio-card {
+    flex-direction: column;
+  }
+  
+  .card-left, .card-center, .card-right {
+    width: 100%;
+  }
+  
+  .card-left {
+    flex-direction: row;
+    padding: 10px 20px;
+  }
+  
+  .main-title {
+    font-size: 48px;
+  }
+  
+  .secondary-title {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 36px;
+  }
+  
+  .secondary-title {
+    font-size: 28px;
+  }
+  
+  .subheading {
+    font-size: 18px;
+  }
+  
+  .portfolio-title {
+    font-size: 36px;
+  }
+  
+  .client-name {
+    font-size: 28px;
+  }
+}

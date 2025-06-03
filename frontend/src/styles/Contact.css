@@ -1,0 +1,201 @@
+/* Contact Page Styles */
+.contact-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000000;
+  padding-top: 110px; /* Space for navbar */
+  padding-bottom: 60px;
+  /* Background image properties */
+  background-image: url('../assets/images/background-image-2.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.contact-content {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
+  position: relative;
+}
+
+.contact-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 64px;
+  font-weight: 900;
+  color: #dadbd9;
+  margin-bottom: 40px;
+  /* Remove margin-left to center the title */
+  margin-left: 0;
+  letter-spacing: 2px;
+  position: relative;
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+.contact-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 35%;
+  height: 4px;
+  background-color: #dadbd9;
+}
+
+.contact-info {
+  margin-top: 40px;
+  display: flex;
+  gap: 32px;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+}
+
+.contact-info-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  font-size: 18px;
+  width: 100%;
+  background-color: transparent;
+  padding: 0;
+  border: none;
+}
+
+.contact-icon {
+  color: #dbb900;
+  margin-right: 15px;
+  font-size: 24px;
+  flex-shrink: 0;
+  margin-top: 5px; /* Align icon with text */
+}
+
+.contact-text {
+  margin: 0;
+  text-align: left;
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  align-items: baseline;
+  width: 100%;
+}
+
+.contact-label {
+  font-family: 'Cinzel', sans-serif;
+  font-size: 32px;
+  font-weight: bold;
+  margin-right: 10px;
+  color: #dadbd9;
+  white-space: nowrap; /* Prevent label from wrapping */
+}
+
+.contact-value {
+  font-family: 'Cinzel', sans-serif;
+  font-size: 32px;
+  color: #dbb900;
+  flex: 1;
+}
+
+.contact-link {
+  color: #dbb900;
+  text-decoration: none;
+  transition: color 0.2s;
+  font-family: 'League Spartan', serif;
+  display: inline-block;
+  width: 100%;
+  white-space: normal; /* Allow text to wrap within the link */
+  word-break: break-word;
+}
+
+.social-icons {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  width: 100%;
+  background-color: transparent;
+  padding: 0;
+  border: none;
+}
+
+.social-icon {
+  color: #dbb900;
+  font-size: 40px; /* Increased from 30px */
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #dadbd9;
+  transform: scale(1.1); /* Slightly enlarges the icon on hover */
+}
+
+.book-appointment-button {
+  display: block;
+  width: 100%;
+  max-width: 100%; /* Make button full width */
+  margin: 40px 0 0;
+  background-color: #000000;
+  color: #dbb900;
+  padding: 15px 30px;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 18px;
+  font-weight: 700;
+  border: 2px solid #dbb900;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.book-appointment-button:hover {
+  background-color: #dbb900;
+  color: #000000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .contact-info {
+    width: 100%;
+  }
+  
+  .contact-text {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .contact-label {
+    margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-title {
+    font-size: 36px;
+    text-align: center;
+  }
+  
+  .contact-info-item {
+    font-size: 16px;
+    align-items: flex-start;
+  }
+  
+  .contact-text {
+    flex-direction: column;
+  }
+  
+  .book-appointment-button {
+    font-size: 16px;
+    padding: 12px 25px;
+    margin: 30px 0 0;
+    width: 100%;
+  }
+}

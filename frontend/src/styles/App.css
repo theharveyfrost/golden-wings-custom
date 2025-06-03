@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* This prevents the scrollbar from causing layout shifts */
+  overflow-y: scroll;
+  /* Force scrollbar to always be visible */
+  scrollbar-width: thin; /* For Firefox */
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #000000;
+  color: #dadbd9;
+  /* Prevent content shift when scrollbar appears/disappears */
+  width: 100%;
+  position: relative;
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #dbb900;
+  border-radius: 4px;
+}
+
+.content {
+  margin-top: 5px; 
+  min-height: calc(100vh - 80px);
+}

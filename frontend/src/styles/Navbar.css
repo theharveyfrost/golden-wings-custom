@@ -1,0 +1,206 @@
+/* Navbar Styles */
+.navbar {
+  width: 100%;
+  background-color: #000000;
+  color: #dadbd9;
+  padding: 0 20px; /* Reduced vertical padding to 0, increased horizontal */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* This will center items based on the tallest item (logo) */
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.navbar-logo {
+  display: flex; /* Use flexbox for logo and text */
+  align-items: center; /* Vertically align logo and text */
+  text-decoration: none;
+}
+
+.navbar-logo .logo-img {
+  height: 80px; /* Increased logo height */
+  margin-right: 0px; /* Space between logo image and new separator/text */
+}
+
+/* New separator style */
+.logo-separator {
+  width: 3.5px;
+  height: 55px; /* Adjust height as needed to align with text */
+  background-color: #dbb900; /* Always gold */
+  margin-right: 10px; /* Space between separator and text */
+}
+
+/* New logo text container */
+.logo-text {
+  display: flex;
+  flex-direction: column; /* Stack the text lines */
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 700;
+  color: #dadbd9; /* White color */
+  font-size: 17px; /* Adjust font size as needed */
+  line-height: 1.2; /* Adjust line height */
+}
+
+
+.nav-group {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-right: 90px; /* Space between nav links and sign in button */
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  margin-right: 20px; /* Space between nav items */
+}
+
+.nav-item:last-child {
+  margin-right: 0; /* No margin on the last item */
+}
+
+/* Styling for icons, links, and separators */
+.nav-icon,
+.nav-link,
+.nav-separator {
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.nav-icon {
+  font-size: 20px; /* Adjust icon size */
+  margin-right: 8px; /* Space between icon and text */
+  color: #dbb900; /* Default yellow color */
+}
+
+.nav-link {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #dbb900; /* Default yellow color */
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+.nav-separator {
+  width: 1.5px;
+  height: 20px; /* Height of the separator */
+  background-color: #dbb900; /* Default yellow color */
+  margin-left: 20px; /* Space between link and separator */
+}
+
+/* Active state styles */
+.nav-icon.active,
+.nav-link.active {
+  color: #dadbd9; /* White color for active icon and link */
+}
+
+/* Corrected: Set background-color for active separator */
+.nav-separator.active {
+  background-color: #dadbd9; /* White color for active separator */
+}
+
+
+/* Hover state styles */
+.nav-item:hover .nav-icon,
+.nav-item:hover .nav-link {
+  color: #dadbd9; /* White color on hover for icon and link */
+}
+
+/* Corrected: Set background-color on hover for separator */
+.nav-item:hover .nav-separator {
+  background-color: #dadbd9; /* White color on hover for separator */
+}
+
+
+/* Sign In Button */
+.sign-in-btn {
+  background-color: #000000;
+  color: #dbb900;
+  padding: 5px 20px;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  white-space: nowrap; /* Prevent text wrapping */
+  border: 2px solid #dbb900; /* Add default border */
+}
+
+.sign-in-btn:hover {
+  background-color: #dbb900;
+  color: #000000;
+  border: 2px solid #dbb900; /* Keep border on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .nav-links {
+    margin-right: 15px;
+  }
+
+  .nav-item {
+    margin-right: 15px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+  }
+
+  .sign-in-btn {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-group {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .nav-links {
+    margin-right: 0;
+  }
+
+  .nav-item {
+    margin-right: 10px;
+  }
+
+  .nav-separator {
+    display: none; /* Hide separator on small screens */
+  }
+
+  .navbar-logo {
+    flex-direction: column; /* Stack logo elements on small screens */
+    align-items: flex-start;
+  }
+
+  .navbar-logo .logo-img {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .logo-separator {
+    display: none; /* Hide logo separator on small screens */
+  }
+}
