@@ -8,6 +8,8 @@ import AuthForms from './components/AuthForms';
 import AppointmentForm from './components/AppointmentForm';
 import './styles/fonts.css';
 import './styles/App.css';
+import ProfilePage from './components/ProfilePage';
+import ArtworkForm from './components/ArtworkForm';
 
 function App() {
   const [showAuthForm, setShowAuthForm] = useState(false);
@@ -16,6 +18,9 @@ function App() {
   const [showAppointmentForm, setShowAppointmentForm] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
   const [adminCredentials] = useState({ username: 'admin', password: 'admin123' }); // Admin credentials
+  const [showProfilePage, setShowProfilePage] = useState(false);
+  const [showArtworkForm, setShowArtworkForm] = useState(false);
+  const [editArtworkId, setEditArtworkId] = useState(null);
 
   // Check for admin login in localStorage on component mount
   useEffect(() => {
@@ -64,12 +69,31 @@ function App() {
     setShowAppointmentForm(false);
   };
 
+  const handleShowProfile = () => {
+    setShowProfilePage(true);
+  };
+
+  const handleCloseProfile = () => {
+    setShowProfilePage(false);
+  };
+
+  const handleShowArtworkForm = (artworkId = null) => {
+    setEditArtworkId(artworkId);
+    setShowArtworkForm(true);
+  };
+
+  const handleCloseArtworkForm = () => {
+    setShowArtworkForm(false);
+    setEditArtworkId(null);
+  };
+
   return (
     <Router>
       <Navbar 
         onSignInClick={() => handleShowAuth('login')} 
         isLoggedIn={isLoggedIn}
         onLogout={handleLogout}
+        onProfileClick={handleShowProfile} // Add this prop
       />
       <div className="content">
         <Routes>
@@ -119,6 +143,17 @@ function App() {
         <AppointmentForm 
           onClose={handleCloseAppointment}
           selectedService={selectedService}
+        />
+      )}
+      
+      {showProfilePage && isLoggedIn && (
+        <ProfilePage onClose={handleCloseProfile} />
+      )}
+      
+      {showArtworkForm && isLoggedIn && (
+        <ArtworkForm 
+          onClose={handleCloseArtworkForm}
+          artworkId={editArtworkId}
         />
       )}
     </Router>

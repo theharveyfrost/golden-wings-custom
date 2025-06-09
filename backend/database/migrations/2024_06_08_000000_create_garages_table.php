@@ -6,28 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('garages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('address');
-            $table->string('city');
-            $table->string('phone');
-            $table->string('email')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
+            $table->integer('max_appointments_per_day')->default(4);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('garages');
     }

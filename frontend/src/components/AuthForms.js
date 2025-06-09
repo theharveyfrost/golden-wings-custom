@@ -8,7 +8,12 @@ const AuthForms = ({ onClose, initialMode = 'login', onLogin }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [loginError, setLoginError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleMode = () => {
     setMode(mode === 'login' ? 'signup' : 'login');
@@ -16,6 +21,7 @@ const AuthForms = ({ onClose, initialMode = 'login', onLogin }) => {
     setShowPassword(false);
     setShowConfirmPassword(false);
     setLoginError(false);
+    setErrorMessage('');
   };
 
   const togglePasswordVisibility = () => {
@@ -26,11 +32,98 @@ const AuthForms = ({ onClose, initialMode = 'login', onLogin }) => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    const success = onLogin({ email, password });
-    if (!success) {
+    setIsLoading(true);
+    setLoginError(false);
+    setErrorMessage('');
+
+    try {
+      // First, get CSRF cookie
+      await fetch('http://localhost:8000/sanctum/csrf-cookie', {
+        credentials: 'include',
+      });
+
+      const response = await fetch('http://localhost:8000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      // Store token and user data in localStorage
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('adminLoggedIn', 'true');
+
+      // Call the onLogin callback
+      onLogin({ email, password });
+      onClose();
+    } catch (error) {
       setLoginError(true);
+      setErrorMessage(error.message || 'Invalid credentials');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSignupSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setLoginError(false);
+    setErrorMessage('');
+
+    try {
+      // First, get CSRF cookie
+      await fetch('http://localhost:8000/sanctum/csrf-cookie', {
+        credentials: 'include',
+      });
+
+      const response = await fetch('http://localhost:8000/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          name,
+          username,
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Registration failed');
+      }
+
+      // Store token and user data in localStorage
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('adminLoggedIn', 'true');
+
+      // Call the onLogin callback
+      onLogin({ email, password });
+      onClose();
+    } catch (error) {
+      setLoginError(true);
+      setErrorMessage(error.message || 'Registration failed');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -42,12 +135,12 @@ const AuthForms = ({ onClose, initialMode = 'login', onLogin }) => {
           <form className="auth-form login-form" onSubmit={handleLoginSubmit}>
             <h2 className="auth-title">WELCOME BACK</h2>
             
-            {loginError && <div className="error-message">Invalid credentials. Try admin/admin123</div>}
+            {loginError && <div className="error-message">{errorMessage || 'Invalid credentials. Try admin/admin123'}</div>}
             
             <div className="form-group-1">
               <label> Username / Email Address :</label>
               <input 
-                type="username" 
+                type="email" 
                 className="auth-input" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -79,7 +172,9 @@ const AuthForms = ({ onClose, initialMode = 'login', onLogin }) => {
               </div>
             </div>
             
-            <button type="submit" className="auth-button">LOG IN</button>
+            <button type="submit" className="auth-button" disabled={isLoading}>
+              {isLoading ? 'LOGGING IN...' : 'LOG IN'}
+            </button>
             
             <div className="auth-switch">
               DON'T HAVE AN ACCOUNT? <span onClick={toggleMode} className="auth-link">SIGN UP</span>
@@ -87,12 +182,30 @@ const AuthForms = ({ onClose, initialMode = 'login', onLogin }) => {
           </form>
         ) : (
           // Signup Form
-          <div className="auth-form signup-form">
+          <form className="auth-form signup-form" onSubmit={handleSignupSubmit}>
             <h2 className="auth-title">WE'RE HAPPY<br />TO HAVE YOU</h2>
+            
+            {loginError && <div className="error-message">{errorMessage}</div>}
+            
+            <div className="form-group-1">
+              <label>Full Name</label>
+              <input 
+                type="text" 
+                className="auth-input"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
             
             <div className="form-group-1">
               <label>Username</label>
-              <input type="text" className="auth-input" />
+              <input 
+                type="text" 
+                className="auth-input"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </div>
             
             <div className="form-group-1">
@@ -111,7 +224,10 @@ const AuthForms = ({ onClose, initialMode = 'login', onLogin }) => {
               <div className="password-input-container">
                 <input 
                   type={showPassword ? "text" : "password"} 
-                  className="auth-input" 
+                  className="auth-input"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
                 <button 
                   type="button" 
@@ -123,33 +239,17 @@ const AuthForms = ({ onClose, initialMode = 'login', onLogin }) => {
                 </button>
               </div>
             </div>
+    
             
-            <div className="form-group-1">
-              <label>Confirm Password :</label>
-              <div className="password-input-container">
-                <input 
-                  type={showConfirmPassword ? "text" : "password"} 
-                  className="auth-input" 
-                />
-                <button 
-                  type="button" 
-                  className="toggle-password-btn" 
-                  onClick={toggleConfirmPasswordVisibility}
-                  aria-label={showConfirmPassword ? "Hide password" : "Show password"}
-                >
-                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-                </button>
-              </div>
-            </div>
-            
-            <button className="auth-button">SIGN UP</button>
+            <button type="submit" className="auth-button" disabled={isLoading}>
+              {isLoading ? 'SIGNING UP...' : 'SIGN UP'}
+            </button>
             
             <div className="auth-switch">
               ALREADY HAVE AN ACCOUNT? <span onClick={toggleMode} className="auth-link">LOG IN</span>
             </div>
-          </div>
+          </form>
         )}
-        
         <button className="close-button" onClick={onClose}>×</button>
       </div>
     </div>

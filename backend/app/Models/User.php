@@ -3,10 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -22,11 +22,20 @@ class User extends Authenticatable
         'name',
         'username',
         'email',
-        'phone',
-        'address',
-        'profile_image',
         'password',
+        'is_admin',
     ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'is_admin' => 'boolean',
+    ];
+
+    public function appointments()
+    {
+        return $this->hasMany(\App\Models\Appointment::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -49,13 +58,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-    
-    /**
-     * Get the appointments for the user.
-     */
-    public function appointments()
-    {
-        return $this->hasMany(Appointment::class);
     }
 }

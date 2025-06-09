@@ -1,49 +1,32 @@
 <?php
 
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Appointment extends Model
 {
-    use HasFactory;
-    
     protected $fillable = [
         'user_id',
         'garage_id',
-        'service_id',
         'appointment_date',
+        'appointment_time',
         'status',
-        'notes',
+        'notes'
     ];
-    
+
     protected $casts = [
-        'appointment_date' => 'datetime',
+        'appointment_date' => 'date',
     ];
-    
-    /**
-     * Get the user that owns the appointment.
-     */
-    public function user()
+
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-    
-    /**
-     * Get the garage that the appointment is for.
-     */
-    public function garage()
+
+    public function garage(): BelongsTo
     {
         return $this->belongsTo(Garage::class);
-    }
-    
-    /**
-     * Get the service that the appointment is for.
-     */
-    public function service()
-    {
-        return $this->belongsTo(Service::class);
     }
 }

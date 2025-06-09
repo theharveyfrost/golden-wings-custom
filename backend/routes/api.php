@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\AppointmentController;
+use App\Http\Controllers\Api\ArtworkController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\GarageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,26 +18,49 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Public routes
+Route::get('/garages', [GarageController::class, 'index']);
+Route::get('/garages/{garage}', [GarageController::class, 'show']);
+Route::get('/garages/{garage}/available-slots/{date}', [GarageController::class, 'availableSlots']);
 
-// Authentication Routes
-Route::post('/register', [App\Http\Controllers\Auth\AuthController::class, 'register']);
-Route::post('/login', [App\Http\Controllers\Auth\AuthController::class, 'login']);
-Route::post('/logout', [App\Http\Controllers\Auth\AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::get('/artworks', [ArtworkController::class, 'index']);
+Route::get('/artworks/featured', [ArtworkController::class, 'featured']);
+Route::get('/artworks/{artwork}', [ArtworkController::class, 'show']);
 
-// Appointment Routes
+// Authentication routes
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+
+// Protected routes
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('appointments', App\Http\Controllers\AppointmentController::class);
+    // User routes
+    Route::get('/user', [AuthController::class, 'user']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    
+    // Appointments
+    Route::get('/appointments', [AppointmentController::class, 'index']);
+    Route::post('/appointments', [AppointmentController::class, 'store']);
+    Route::get('/appointments/{appointment}', [AppointmentController::class, 'show']);
+    Route::delete('/appointments/{appointment}', [AppointmentController::class, 'destroy']);
+    Route::post('/appointments/{appointment}/cancel', [AppointmentController::class, 'cancel']);
+    
+    // User's appointments
+    Route::get('/my-appointments', [AppointmentController::class, 'myAppointments']);
 });
 
-// Garage Routes
-Route::get('/garages', [App\Http\Controllers\GarageController::class, 'index']);
-
-// Service Routes
-Route::get('/services', [App\Http\Controllers\ServiceController::class, 'index']);
-
-// Artwork Routes
-Route::apiResource('artworks', App\Http\Controllers\ArtworkController::class);
-Route::get('/artworks/featured', [App\Http\Controllers\ArtworkController::class, 'featured']);
+// Admin routes
+Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
+    // Artworks management
+    Route::post('/artworks', [ArtworkController::class, 'store']);
+    Route::put('/artworks/{artwork}', [ArtworkController::class, 'update']);
+    Route::delete('/artworks/{artwork}', [ArtworkController::class, 'destroy']);
+    
+    // Garages management
+    Route::post('/garages', [GarageController::class, 'store']);
+    Route::put('/garages/{garage}', [GarageController::class, 'update']);
+    Route::delete('/garages/{garage}', [GarageController::class, 'destroy']);
+    
+    // Appointments management
+    Route::get('/appointments', [AppointmentController::class, 'all']);
+    Route::put('/appointments/{appointment}/status', [AppointmentController::class, 'updateStatus']);
+});

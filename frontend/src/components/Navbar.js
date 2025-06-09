@@ -5,7 +5,7 @@ import logo from '../assets/images/logo.png';
 // Import React Icons
 import { FaHome, FaTools, FaPhoneAlt, FaSignOutAlt } from 'react-icons/fa';
 
-const Navbar = ({ onSignInClick, isLoggedIn, onLogout }) => {
+const Navbar = ({ onSignInClick, isLoggedIn, onLogout, onProfileClick }) => {
   const location = useLocation();
 
   return (
