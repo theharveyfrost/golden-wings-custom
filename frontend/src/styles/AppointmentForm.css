@@ -1,5 +1,5 @@
-/* Add to your AppointmentForm.css */
-.appointment-form-overlay {
+/* Golden Wings Custom Appointment Form Styles */
+.gw-appointment-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -9,13 +9,13 @@
   backdrop-filter: blur(5px);
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Align to top */
+  align-items: flex-start;
   padding-top: 2rem;
   z-index: 1000;
   overflow-y: auto;
 }
 
-.appointment-form {
+.gw-appointment-form {
   background: white;
   padding: 2rem;
   border-radius: 8px;
@@ -25,87 +25,199 @@
   overflow-y: auto;
   position: relative;
   margin: 2rem 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.gw-form-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.gw-form-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
 }
 
 /* Form group styles */
-.form-group {
+.gw-form-group {
   margin-bottom: 1.5rem;
   width: 100%;
 }
 
-.form-group label {
+.gw-form-label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: #333;
+  color: #444;
+  font-size: 0.95rem;
 }
 
-/* Input and select styles */
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="tel"],
-.form-group select,
-.form-group textarea {
+/* Input and select base styles */
+.gw-form-input,
+.gw-form-select,
+.gw-form-textarea {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 1rem;
-  transition: border-color 0.2s;
+  color: #333;
+  background-color: #fff;
+  transition: all 0.2s ease;
+  font-family: inherit;
 }
 
 /* Select dropdown specific styles */
-.form-group select {
+.gw-form-select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23555%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
-  background-position: right 0.7em top 50%;
+  background-position: right 1rem top 50%;
   background-size: 0.65em auto;
-  padding-right: 2.5em;
+  padding-right: 2.5rem;
   cursor: pointer;
+}
+
+/* Style the dropdown options */
+.gw-form-option {
+  padding: 0.75rem 1rem;
+  color: #333;
+  background-color: #fff;
+  font-size: 0.95rem;
 }
 
 /* Focus states */
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
+.gw-form-input:focus,
+.gw-form-select:focus,
+.gw-form-textarea:focus {
   outline: none;
   border-color: #4a90e2;
-  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+/* Textarea specific styles */
+.gw-form-textarea {
+  min-height: 100px;
+  resize: vertical;
 }
 
 /* Button styles */
-.submit-button {
-  background-color: #4a90e2;
-  color: white;
+.gw-submit-button {
+  background-color: #d4af37; /* Gold color */
+  color: #1a1a1a;
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
+  padding: 0.875rem 1.5rem;
+  border-radius: 6px;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   width: 100%;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.submit-button:hover {
-  background-color: #357abd;
+.gw-submit-button:hover {
+  background-color: #c19b2e;
+  transform: translateY(-1px);
 }
 
-.submit-button:disabled {
+.gw-submit-button:active {
+  transform: translateY(0);
+}
+
+.gw-submit-button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
+  transform: none;
 }
 
-.close-button {
+/* Close button */
+.gw-close-button {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0.5rem;
+  right: 0.5rem;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   cursor: pointer;
+  color: #666;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.gw-close-button:hover {
+  color: #333;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Error and success messages */
+.gw-error-message {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.gw-success-message {
+  background-color: #dcfce7;
+  color: #166534;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.gw-success-icon {
+  font-size: 1.1rem;
+}
+
+/* Input icons */
+.gw-input-icon {
+  margin-right: 0.5rem;
+  color: #666;
+  font-size: 0.9em;
+}
+
+/* Date picker overrides */
+.gw-date-picker {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #333;
+  background-color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .gw-appointment-form {
+    margin: 1rem;
+    padding: 1.25rem;
+  }
+  
+  .gw-form-header h2 {
+    font-size: 1.25rem;
+  }
+  
+  .gw-form-input,
+  .gw-form-select,
+  .gw-form-textarea,
+  .gw-submit-button {
+    padding: 0.65rem 0.875rem;
+    font-size: 0.95rem;
+  }
 }

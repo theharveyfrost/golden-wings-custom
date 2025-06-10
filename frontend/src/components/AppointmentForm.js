@@ -195,42 +195,55 @@ const AppointmentForm = ({ onClose, selectedServiceId = null }) => {
   console.log('Rendering form with services:', services);
   
   return (
-    <div className="appointment-form-overlay">
-      <div className="appointment-form">
-        <div className="form-header">
+    <div className="gw-appointment-overlay">
+      <div className="gw-appointment-form">
+        <div className="gw-form-header">
           <h2>Book an Appointment</h2>
-          <button className="close-button" onClick={onClose}>&times;</button>
+          <button className="gw-close-button" onClick={onClose}>&times;</button>
         </div>
 
-        {error && <div className="error-message">{error}</div>}
+        {error && <div className="gw-error-message">{error}</div>}
         {success && (
-          <div className="success-message">
-            <FaCheck className="success-icon" />
+          <div className="gw-success-message">
+            <FaCheck className="gw-success-icon" />
             <p>Appointment booked successfully! You will receive a confirmation email shortly.</p>
           </div>
         )}
 
         {!success && (
-          <form onSubmit={handleSubmit}>
-
+          <form onSubmit={handleSubmit} className="gw-appointment-form-content">
             {/* Service dropdown */}
-            <div className="form-group">
-              <label htmlFor="service_id">Service</label>
-              <select id="service_id" name="service_id" value={formData.service_id} onChange={handleInputChange}>
+            <div className="gw-form-group">
+              <label htmlFor="service_id" className="gw-form-label">Service</label>
+              <select 
+                id="service_id" 
+                name="service_id" 
+                value={formData.service_id} 
+                onChange={handleInputChange}
+                className="gw-form-select"
+              >
                 {services.map(service => (
-                  <option key={service.id} value={service.id}>{service.title}</option>
+                  <option key={service.id} value={service.id} className="gw-form-option">
+                    {service.title}
+                  </option>
                 ))}
               </select>
             </div>
 
             {/* Garage dropdown */}
-            <div className="form-group">
-              <label htmlFor="garage_id">
-                <FaWarehouse className="input-icon" /> Garage Location
+            <div className="gw-form-group">
+              <label htmlFor="garage_id" className="gw-form-label">
+                <FaWarehouse className="gw-input-icon" /> Garage Location
               </label>
-              <select id="garage_id" name="garage_id" value={formData.garage_id} onChange={handleGarageChange}>
+              <select 
+                id="garage_id" 
+                name="garage_id" 
+                value={formData.garage_id} 
+                onChange={handleGarageChange}
+                className="gw-form-select"
+              >
                 {garages.map(garage => (
-                  <option key={garage.id} value={garage.id}>
+                  <option key={garage.id} value={garage.id} className="gw-form-option">
                     {garage.name} ({garage.location})
                   </option>
                 ))}
@@ -238,9 +251,9 @@ const AppointmentForm = ({ onClose, selectedServiceId = null }) => {
             </div>
 
             {/* Date picker */}
-            <div className="form-group">
-              <label>
-                <FaCalendarAlt className="input-icon" /> Appointment Date
+            <div className="gw-form-group">
+              <label className="gw-form-label">
+                <FaCalendarAlt className="gw-input-icon" /> Appointment Date
               </label>
               <DatePicker
                 selected={selectedDate}
@@ -249,46 +262,72 @@ const AppointmentForm = ({ onClose, selectedServiceId = null }) => {
                 minDate={new Date()}
                 renderDayContents={renderDayContents}
                 disabled={isLoadingDates}
+                className="gw-date-picker"
               />
             </div>
 
             {/* Client name */}
-            <div className="form-group">
-              <label>
-                <FaUser className="input-icon" /> Name
+            <div className="gw-form-group">
+              <label className="gw-form-label">
+                <FaUser className="gw-input-icon" /> Name
               </label>
-              <input type="text" name="client_name" value={formData.client_name} onChange={handleInputChange} required />
+              <input 
+                type="text" 
+                name="client_name" 
+                value={formData.client_name} 
+                onChange={handleInputChange} 
+                required 
+                className="gw-form-input"
+              />
             </div>
 
             {/* Client email */}
-            <div className="form-group">
-              <label>
-                <FaEnvelope className="input-icon" /> Email
+            <div className="gw-form-group">
+              <label className="gw-form-label">
+                <FaEnvelope className="gw-input-icon" /> Email
               </label>
-              <input type="email" name="client_email" value={formData.client_email} onChange={handleInputChange} required />
+              <input 
+                type="email" 
+                name="client_email" 
+                value={formData.client_email} 
+                onChange={handleInputChange} 
+                required 
+                className="gw-form-input"
+              />
             </div>
 
             {/* Client phone */}
-            <div className="form-group">
-              <label>
-                <FaPhone className="input-icon" /> Phone
+            <div className="gw-form-group">
+              <label className="gw-form-label">
+                <FaPhone className="gw-input-icon" /> Phone
               </label>
-              <input type="text" name="client_phone" value={formData.client_phone} onChange={handleInputChange} required />
+              <input 
+                type="text" 
+                name="client_phone" 
+                value={formData.client_phone} 
+                onChange={handleInputChange} 
+                required 
+                className="gw-form-input"
+              />
             </div>
 
             {/* Notes */}
-            <div className="form-group">
-              <label>
-                <FaStickyNote className="input-icon" /> Notes (optional)
+            <div className="gw-form-group">
+              <label className="gw-form-label">
+                <FaStickyNote className="gw-input-icon" /> Notes (optional)
               </label>
-              <textarea name="notes" value={formData.notes} onChange={handleInputChange} />
+              <textarea 
+                name="notes" 
+                value={formData.notes} 
+                onChange={handleInputChange}
+                className="gw-form-textarea"
+              />
             </div>
 
             {/* Submit */}
-            <button type="submit" className="submit-button" disabled={submitting}>
+            <button type="submit" className="gw-submit-button" disabled={submitting}>
               {submitting ? 'Booking...' : 'Book Appointment'}
             </button>
-
           </form>
         )}
       </div>
