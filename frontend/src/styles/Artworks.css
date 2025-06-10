@@ -1,0 +1,115 @@
+/* Artworks Page Styles */
+.artworks-page {
+  padding: 80px 20px;
+  background-color: #000000;
+  min-height: 100vh;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.page-header h1 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 48px;
+  color: #dadbd9;
+  margin-bottom: 20px;
+  text-decoration: underline;
+  text-underline-offset: 10px;
+  letter-spacing: 2px;
+}
+
+.page-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  color: #dbb900;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Portfolio CTA Section */
+.portfolio-cta {
+  padding: 80px 20px;
+  background-color: #000000;
+  text-align: center;
+  border-top: 1px solid #dbb900;
+  border-bottom: 1px solid #dbb900;
+  margin: 40px 0;
+}
+
+.cta-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-content h2 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 36px;
+  color: #dadbd9;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.cta-content p {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  color: #dadbd9;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 30px;
+  background-color: #dbb900;
+  color: #000000;
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+}
+
+.cta-button:hover {
+  background-color: #f0d15e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(219, 185, 0, 0.3);
+}
+
+.cta-icon {
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.cta-button:hover .cta-icon {
+  transform: translateX(4px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 36px;
+  }
+  
+  .page-subtitle {
+    font-size: 18px;
+    padding: 0 20px;
+  }
+  
+  .cta-content h2 {
+    font-size: 28px;
+  }
+  
+  .cta-content p {
+    font-size: 16px;
+    padding: 0 15px;
+  }
+}

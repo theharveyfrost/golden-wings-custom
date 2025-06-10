@@ -175,6 +175,11 @@
   border-radius: 10px 10px 0 0;
   transition: transform 0.3s ease, border-radius 0.3s ease;
 }
+.card-wrapper:hover .reserve-section {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 1200px) {

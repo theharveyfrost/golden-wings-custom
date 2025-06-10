@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/Contact.css';
 import { FaMapMarkerAlt, FaEnvelope, FaPhoneAlt, FaFacebook, FaInstagram } from 'react-icons/fa';
 
-function Contact({ isLoggedIn, onAppointmentClick }) {
+function Contact({ onAppointmentClick }) {
   return (
     <div className="contact-container">
       <div className="contact-content">

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { FaArrowRight } from 'react-icons/fa';
 import '../styles/Home.css';
 import lamborghiniImg from '../assets/images/lamborghini.png';
 
@@ -9,7 +11,7 @@ function Home() {
         <div className="hero-content">
           <h1 className="main-title">More Than A Ride</h1>
           <h1 className="secondary-title">It's A Statement</h1>
-          <p className="subheading">Unleash Your Vehicule's True Character</p>
+          <p className="subheading">Unleash Your Vehicle's True Character</p>
         </div>
         <div className="hero-image">
           <img src={lamborghiniImg} alt="Luxury Custom Car" />
@@ -19,42 +21,18 @@ function Home() {
         </div>
       </div>
 
-      {/* Portfolio Section */}
-      <div className="portfolio-section">
-        <div className="section-divider"></div>
-        <h2 className="portfolio-title">Some Of Our Artworks</h2>
-        <div className="portfolio-cards">
-          {/* This will be populated from the backend */}
-          <div className="portfolio-card">
-            <div className="card-left">
-              <div className="card-logo">
-                <img src={require('../assets/images/black-logo.png')} alt="Golden Wings Custom Logo" />
-              </div>
-              <div className="card-date">21-06-2025</div>
-            </div>
-            <div className="card-center">
-              <div className="image-slider">
-                <img src={require('../assets/images/sample-car.jpg')} alt="Custom Work" className="card-image-main" />
-                <button className="image-nav prev-image">&#10094;</button>
-                <button className="image-nav next-image">&#10095;</button>
-              </div>
-            </div>
-            <div className="card-right">
-              <h3 className="client-name">Victor M.</h3>
-              <p className="project-description">
-              Full custom interior in burnt-orange leather, polished engine bay detailing, and bespoke exterior wings with a maroon & copper two-tone finish.
-              </p>
-              <div className="feedback-section">
-                <h4 className="feedback-title">Feedback:</h4>
-                <p className="feedback-text">"Feels like a retro spaceship. Absolute Perfection."</p>
-              </div>
-            </div>
-          </div>
+      {/* Portfolio CTA Section */}
+      <section className="portfolio-cta">
+        <div className="cta-content">
+          <h2>Explore Our Work</h2>
+          <p>Check out our gallery of custom automotive projects and transformations.</p>
+          <Link to="/artworks" className="cta-button">
+            View Gallery <FaArrowRight className="cta-icon" />
+          </Link>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
 
 export default Home;
-  

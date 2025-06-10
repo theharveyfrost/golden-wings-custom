@@ -88,11 +88,6 @@
   letter-spacing: 1px;
   text-align: center; /* Ensure text is centered */
   width: 100%; /* Ensure it takes full width */
-}
-
-/* Portfolio Section */
-.portfolio-section {
-  padding: 80px 20px;
   background-color: #000000;
   width: 100%; /* Make this section wider */
   max-width: 1400px; /* Increase max width */

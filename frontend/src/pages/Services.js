@@ -7,31 +7,31 @@ import customizationImg from '../assets/images/customization.jpg';
 import paintingImg from '../assets/images/painting.jpg';
 import interiorWorkImg from '../assets/images/interior-work.jpg';
 
-function Services({ isLoggedIn, onReserveClick }) {
+function Services({ onReserveClick }) {
   const [hoveredButton, setHoveredButton] = useState(null);
 
-  // Service data
+  // Service data - IDs should match the backend service IDs
   const services = [
     {
-      id: 'part-replacement',
+      id: 1, // This should match the ID from your backend API
       title: 'Part Replacement',
       description: 'Replacement of damaged vehicule parts',
       image: partReplacementImg
     },
     {
-      id: 'customization',
+      id: 2, // This should match the ID from your backend API
       title: 'Customization',
       description: 'Providing new parts and visual upgrades',
       image: customizationImg
     },
     {
-      id: 'painting',
+      id: 3, // This should match the ID from your backend API
       title: 'Painting',
       description: 'Professional painting and color changes',
       image: paintingImg
     },
     {
-      id: 'interior-work',
+      id: 4, // This should match the ID from your backend API
       title: 'Interior Work',
       description: 'Interior repairs and custom upholstery',
       image: interiorWorkImg
