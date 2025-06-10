@@ -9,12 +9,10 @@ const fs = require('fs');
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Database connection
 const dbConfig = {
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
@@ -25,13 +23,11 @@ const dbConfig = {
   queueLimit: 0
 };
 
-// Create uploads directory if it doesn't exist
 const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
-// Configure multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, uploadsDir);
@@ -44,7 +40,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ 
   storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+  limits: { fileSize: 5 * 1024 * 1024 }, 
   fileFilter: (req, file, cb) => {
     const filetypes = /jpeg|jpg|png|gif/;
     const mimetype = filetypes.test(file.mimetype);
@@ -55,12 +51,10 @@ const upload = multer({
     }
     cb(new Error('Only image files are allowed!'));
   }
-}).array('images', 5); // Max 5 files per upload
+}).array('images', 5); 
 
-// Database connection pool
 const pool = mysql.createPool(dbConfig);
 
-// Test database connection
 async function testConnection() {
   try {
     const connection = await pool.getConnection();
@@ -73,9 +67,6 @@ async function testConnection() {
   }
 }
 
-// API Routes
-
-// Get all services
 app.get('/api/services', async (req, res) => {
   try {
     const [services] = await pool.query('SELECT * FROM services ORDER BY name');
@@ -86,7 +77,6 @@ app.get('/api/services', async (req, res) => {
   }
 });
 
-// Get all garages
 app.get('/api/garages', async (req, res) => {
   try {
     const [garages] = await pool.query('SELECT * FROM garages ORDER BY name');
@@ -97,18 +87,15 @@ app.get('/api/garages', async (req, res) => {
   }
 });
 
-// Get booked dates for a specific garage
 app.get('/api/appointments/garage/:garageId/dates', async (req, res) => {
   try {
     const { garageId } = req.params;
     
-    // Get all booked dates for the garage
     const [bookedAppointments] = await pool.query(
       'SELECT DISTINCT DATE(appointment_date) as date FROM appointments WHERE garage_id = ? AND status != "cancelled"',
       [garageId]
     );
     
-    // Extract just the date strings
     const bookedDates = bookedAppointments.map(appt => appt.date.toISOString().split('T')[0]);
     
     res.json(bookedDates);
@@ -118,12 +105,11 @@ app.get('/api/appointments/garage/:garageId/dates', async (req, res) => {
   }
 });
 
-// Get all artworks with their images
 app.get('/api/artworks', async (req, res) => {
   try {
     const [artworks] = await pool.query('SELECT * FROM artworks ORDER BY completion_date DESC');
     
-    // Get images for each artwork
+    
     for (let artwork of artworks) {
       const [images] = await pool.query('SELECT * FROM artwork_images WHERE artwork_id = ?', [artwork.id]);
       artwork.images = images;
@@ -136,17 +122,14 @@ app.get('/api/artworks', async (req, res) => {
   }
 });
 
-// Create a new appointment
 app.post('/api/appointments', async (req, res) => {
   try {
     const { garage_id, service_id, appointment_date, client_name, client_email, client_phone, notes } = req.body;
     
-    // Basic validation
     if (!garage_id || !service_id || !appointment_date || !client_name || !client_email || !client_phone) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
     
-    // Insert appointment
     const [result] = await pool.query(
       'INSERT INTO appointments (garage_id, service_id, appointment_date, client_name, client_email, client_phone, notes) VALUES (?, ?, ?, ?, ?, ?, ?)',
       [garage_id, service_id, new Date(appointment_date), client_name, client_email, client_phone, notes || '']
@@ -173,7 +156,6 @@ app.post('/api/appointments', async (req, res) => {
   }
 });
 
-// Upload artwork images
 app.post('/api/artworks/:id/images', (req, res) => {
   upload(req, res, async (err) => {
     if (err) {
@@ -188,19 +170,16 @@ app.post('/api/artworks/:id/images', (req, res) => {
         return res.status(400).json({ error: 'No files uploaded' });
       }
       
-      // Save file references to database
       const imageInserts = files.map(file => ({
         artwork_id: artworkId,
         image_url: `/uploads/${file.filename}`,
         is_primary: false
       }));
       
-      // If this is the first image, set it as primary
       if (imageInserts.length > 0) {
         imageInserts[0].is_primary = true;
       }
       
-      // Insert image records
       for (const image of imageInserts) {
         await pool.query(
           'INSERT INTO artwork_images (artwork_id, image_url, is_primary) VALUES (?, ?, ?)',
@@ -223,10 +202,8 @@ app.post('/api/artworks/:id/images', (req, res) => {
   });
 });
 
-// Get all garages
 app.get('/api/garages', async (req, res) => {
   try {
-    // This would normally come from a database
     const garages = [
       { id: 1, name: 'G.W.C Casa' },
       { id: 2, name: 'G.W.C Rabat' },
@@ -240,10 +217,8 @@ app.get('/api/garages', async (req, res) => {
   }
 });
 
-// Get all services
 app.get('/api/services', async (req, res) => {
   try {
-    // This would normally come from a database
     const services = [
       { id: 1, name: 'Custom Paint Job', description: 'Full custom paint job with your choice of colors and finishes' },
       { id: 2, name: 'Interior Customization', description: 'Custom interior work including seats, dashboard, and trim' },
@@ -259,13 +234,10 @@ app.get('/api/services', async (req, res) => {
   }
 });
 
-// Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });
 });
-
-// Start server
 async function startServer() {
   const dbConnected = await testConnection();
   if (!dbConnected) {
